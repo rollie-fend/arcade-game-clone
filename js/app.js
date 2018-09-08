@@ -42,8 +42,10 @@ Enemy.prototype.render = function() {
 // Check if an enemy has collided with the player
 Enemy.prototype.checkCollisions = function() {
     if (this.y === player.y){
-        console.log("Same lane!");
-	}
+        if (this.x < player.x && this.x+60 > player.x){		// add 2 to account for enemy's imprecise position
+            player.reset();
+	    }
+    }
 }
 // Now write your own player class
 // This class requires an update(), render() and
@@ -58,6 +60,11 @@ class Player {
 		this.y = this.startY;
 		this.sprite = 'images/char-boy.png';
 	}
+
+	reset() {
+        this.x = this.startX;
+        this.y = this.startY;
+    }
 
 	render() {
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
