@@ -1,7 +1,7 @@
 // Enemies our player must avoid
 var Enemy = function(x,y,speed) {
-	// Variables applied to each of our instances go here,
-	// we've provided one for you to get started
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
     this.x = x;									// Note: x increments by 101		
     this.y = y;									// Note: y increments by 83
     this.speed = speed;
@@ -31,7 +31,7 @@ Enemy.prototype.update = function(dt) {
     }else{							    		// or else
         this.x = leftOut;						// reset enemy bug to starting position
     }
-	this.checkCollisions();						// call checkCollisions() from update()
+    this.checkCollisions();						// call checkCollisions() from update()
 };
 
 // Draw the enemy on the screen, required method for game
@@ -53,36 +53,45 @@ Enemy.prototype.checkCollisions = function() {
 
 // 200 is the center tile on the x-axis and 400 is the bottommost tile on the y-axis
 class Player {
-	constructor() {
-		this.startX = 200;
-		this.startY = 400;
-		this.x = this.startX;
-		this.y = this.startY;
-		this.sprite = 'images/char-boy.png';
-	}
-
-	reset() {
+    constructor() {
+        this.startX = 200;
+        this.startY = 400;
+        this.x = this.startX;
+        this.y = this.startY;
+        this.sprite = 'images/char-boy.png';
+    }
+    reset() {
         this.x = this.startX;
         this.y = this.startY;
     }
-
-	render() {
-		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-	}
-
-	handleInput(input) {
-		if (input === 'up'&& this.y>-15) {				// if player  has not reached the last tile
-			this.y -= 83;									// allow upward movement
-		}else if (input === 'down' && this.y < 400){		// if player has not reached the first tile
-			this.y += 83;									// allow downward movement
-		}else if (input === 'right' && this.x < 402) {		// if player has not reached the right edge
-			this.x += 101;									// allow rightward movement
-		}else if (input === 'left' && this.x > 0){			// if player has not reached the left edge
-			this.x -= 101;									// allow leftward movement
-		}
-   }
+    update() {
+        if (this.y <0) {						// if player reaches the last tile
+            setTimeout(this.winGame,10);		// player wins, call winGame() after some delay
+        }												
+    }
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+    winGame() {
+        if (confirm("You win!  Play again?")) {
+            restart();
+            setTimeout(restart,10);				// restart after some delay to show bugs entering frame
+        } else {
+            document.body.innerHTML="";
+        }
+    }
+    handleInput(input) {
+        if (input === 'up'&& this.y>-15) {					// if player  has not reached the last tile
+            this.y -= 83;									// allow upward movement
+        }else if (input === 'down' && this.y < 400){		// if player has not reached the first tile
+            this.y += 83;									// allow downward movement
+        }else if (input === 'right' && this.x < 402) {		// if player has not reached the right edge
+            this.x += 101;									// allow rightward movement
+        }else if (input === 'left' && this.x > 0){			// if player has not reached the left edge
+            this.x -= 101;									// allow leftward movement
+        }
+    }
 }
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -96,6 +105,17 @@ let allEnemies = [];
 allEnemies.push(enemy0,enemy1,enemy2,enemy3);
 let player = new Player();
 
+// use this function when restarting a game
+function restart() {
+    allEnemies = [];
+    enemy0 = new Enemy(leftOut,firstLane,30);
+    enemy1 = new Enemy(leftOut,(firstLane+yIncrement),50);
+    enemy2 = new Enemy(leftOut,(firstLane+yIncrement*2),90);
+    enemy3 = new Enemy(leftOut-xIncrement*2, firstLane+yIncrement,50);
+    allEnemies.push(enemy0,enemy1,enemy2,enemy3);
+    player = new Player();
+}
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -105,6 +125,6 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-	
+
     player.handleInput(allowedKeys[e.keyCode]);
 });

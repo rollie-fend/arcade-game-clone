@@ -89,12 +89,11 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
-// Enable some previously disabled lines of code to avoid errors in testing	 
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
-			enemy.update(dt);
+            enemy.update(dt);
         });
-        //player.update();
+        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -146,7 +145,6 @@ var Engine = (function(global) {
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
      */
-// Enable some previously disabled lines of code to avoid errors in testing	 
     function renderEntities() {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
