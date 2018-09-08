@@ -25,12 +25,39 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+// 200 is the center tile on the x-axis and 400 is the bottommost tile on the y-axis
+class Player {
+	constructor() {
+		this.startX = 200;
+		this.startY = 400;
+		this.x = this.startX;
+		this.y = this.startY;
+		this.sprite = 'images/char-boy.png';
+	}
+
+	render() {
+		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	}
+
+	handleInput(input) {
+		if (input === 'up'&& this.y>-15) {				// if player  has not reached the last tile
+			this.y -= 83;									// allow upward movement
+		}else if (input === 'down' && this.y < 400){		// if player has not reached the first tile
+			this.y += 83;									// allow downward movement
+		}else if (input === 'right' && this.x < 402) {		// if player has not reached the right edge
+			this.x += 101;									// allow rightward movement
+		}else if (input === 'left' && this.x > 0){			// if player has not reached the left edge
+			this.x -= 101;									// allow leftward movement
+		}
+   }
+}
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-
+let player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -41,6 +68,6 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
+	
     player.handleInput(allowedKeys[e.keyCode]);
 });
