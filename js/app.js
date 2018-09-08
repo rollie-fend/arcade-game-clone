@@ -23,6 +23,7 @@ Enemy.prototype.update = function(dt) {
 	}else{									// or else
 		this.x = -93;						// reset enemy bug to starting position
 	}
+	this.checkCollisions();					// call checkCollisions() from update()
 };
 
 // Draw the enemy on the screen, required method for game
@@ -30,6 +31,12 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Check if an enemy has collided with the player
+Enemy.prototype.checkCollisions = function() {
+    if (this.y === player.y){
+        console.log("Same lane!");
+	}
+}
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
