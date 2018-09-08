@@ -1,19 +1,24 @@
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
+var Enemy = function(x,y,speed) {
+	// Variables applied to each of our instances go here,
+	// we've provided one for you to get started
+	this.x = -93;						// for bug to start entering the frame, use -93
+										// and for it to leave the frame, use 493 
+	this.y = 68;						// this is the lane before the water 
+	this.speed = 30;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 };
 
+// Note: rightward movement by 30 pixels * dt takes a bug approx 20 secs to cross the frame
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+	this.x += 30 * dt;							// allow rightward movement by 30 pixels * dt  (takes 20 secs to cross)
 };
 
 // Draw the enemy on the screen, required method for game
@@ -57,6 +62,9 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+let enemy0 = new Enemy();
+let allEnemies = [];
+allEnemies.push(enemy0);
 let player = new Player();
 
 // This listens for key presses and sends the keys to your

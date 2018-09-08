@@ -89,11 +89,11 @@ var Engine = (function(global) {
      * the data/properties related to the object. Do your drawing in your
      * render methods.
      */
-// Disable some lines of code to avoid errors in testing	 
+// Enable some previously disabled lines of code to avoid errors in testing	 
     function updateEntities(dt) {
-        //allEnemies.forEach(function(enemy) {
-         //   enemy.update(dt);
-        //});
+        allEnemies.forEach(function(enemy) {
+			enemy.update(dt);
+        });
         //player.update();
     }
 
@@ -146,14 +146,14 @@ var Engine = (function(global) {
      * tick. Its purpose is to then call the render functions you have defined
      * on your enemy and player entities within app.js
      */
-// Disable some lines of code to avoid errors in testing 	 
+// Enable some previously disabled lines of code to avoid errors in testing	 
     function renderEntities() {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        //allEnemies.forEach(function(enemy) {
-        //  enemy.render();
-        //});
+        allEnemies.forEach(function(enemy) {
+            enemy.render();
+        });
 
         player.render();
     }
