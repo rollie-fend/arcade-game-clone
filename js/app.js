@@ -2,14 +2,22 @@
 var Enemy = function(x,y,speed) {
 	// Variables applied to each of our instances go here,
 	// we've provided one for you to get started
-	this.x = -93;						// for bug to start entering the frame, use -93
-										// and for it to leave the frame, use 493 
-	this.y = 68;							// this is the lane before the water 
-	this.speed = 30;
+    this.x = x;									// Note: x increments by 101		
+    this.y = y;									// Note: y increments by 83
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 };
+// the tiles' pixel positions are: 400, 317, 234, 151, 68 and -15 (botom up - y axis)
+// and -2, 99, 200, 301, 402 (left to right - x axis)
+// frame's left edge is -2 and the right edge is 402
+// for bugs to enter and leave the frame, use -93 and 493 for left and right values respectively
+const leftOut = -93;
+const rightOut = 493;
+const firstLane = 68;
+const xIncrement = 101;
+const yIncrement = 83;
 
 // Note: rightward movement by 30 pixels * dt takes a bug approx 20 secs to cross the frame
 // Update the enemy's position, required method for game
@@ -18,12 +26,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-	if (this.x < 493) {						// while enemy bug has not yet left the frame
-		this.x += 30 * dt;					// allow rightward movement by 30 pixels * dt (takes 20 secs to cross)
-	}else{									// or else
-		this.x = -93;						// reset enemy bug to starting position
-	}
-	this.checkCollisions();					// call checkCollisions() from update()
+    if (this.x < rightOut) {					// while enemy bug has not yet left the frame
+        this.x += this.speed * dt;				// allow rightward movement by value of speed
+    }else{							    		// or else
+        this.x = leftOut;						// reset enemy bug to starting position
+    }
+	this.checkCollisions();						// call checkCollisions() from update()
 };
 
 // Draw the enemy on the screen, required method for game
@@ -73,7 +81,7 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-let enemy0 = new Enemy();
+let enemy0 = new Enemy(leftOut,firstLane,30);
 let allEnemies = [];
 allEnemies.push(enemy0);
 let player = new Player();
