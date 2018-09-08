@@ -82,8 +82,11 @@ class Player {
 // Place the player object in a variable called player
 
 let enemy0 = new Enemy(leftOut,firstLane,30);
+let enemy1 = new Enemy(leftOut,(firstLane+yIncrement),50);
+let enemy2 = new Enemy(leftOut,(firstLane+yIncrement*2),90);
+let enemy3 = new Enemy(leftOut-xIncrement*2, firstLane+yIncrement,50);
 let allEnemies = [];
-allEnemies.push(enemy0);
+allEnemies.push(enemy0,enemy1,enemy2,enemy3);
 let player = new Player();
 
 // This listens for key presses and sends the keys to your
