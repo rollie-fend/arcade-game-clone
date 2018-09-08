@@ -4,7 +4,7 @@ var Enemy = function(x,y,speed) {
 	// we've provided one for you to get started
 	this.x = -93;						// for bug to start entering the frame, use -93
 										// and for it to leave the frame, use 493 
-	this.y = 68;						// this is the lane before the water 
+	this.y = 68;							// this is the lane before the water 
 	this.speed = 30;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -18,7 +18,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-	this.x += 30 * dt;							// allow rightward movement by 30 pixels * dt  (takes 20 secs to cross)
+	if (this.x < 493) {						// while enemy bug has not yet left the frame
+		this.x += 30 * dt;					// allow rightward movement by 30 pixels * dt (takes 20 secs to cross)
+	}else{									// or else
+		this.x = -93;						// reset enemy bug to starting position
+	}
 };
 
 // Draw the enemy on the screen, required method for game
